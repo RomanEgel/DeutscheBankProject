@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="common/common :: common('uploadValues')">
+    <th:block th:fragment="uploadValues">
+        <label>Choose period that you're interested in</label>
+        <div class="input-group mb-3">
+            <input id="date1" type="date"  name="fromDate" value="2016-09-26" max="2018-09-26" min="2014-05-29">
+            <input id="date2" type="date"  name="toDate" value="2018-09-26" max="2018-09-26" min="2014-05-29">
+            <script type="text/javascript">
+
+            </script>
+        </div>
+        <button onclick="loadValues()" id="button" type="button" class="btn btn-primary">Загрузить значения brent</button>
+        <div th:if="button"><a href="/get_values">Go to see currencies of brent oil</a></div>
+        <script type="text/javascript">
+            function loadValues() {
+                var date1, date2;
+                date1 = document.getElementById("date1").value;
+                date2 = document.getElementById("date2").value;
+                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '" }';
+                var jsonDates = JSON.parse(str);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/uploadValues', true);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        alert(xhr.responseText);
+                        button.innerHTML = 'Готово!';
+                    }
+                };
+                xhr.send(JSON.stringify(jsonDates));
+                button.innerHTML = 'Загружаю...'; // (2)
+                button.disabled = true;
+            }
+        </script>
+    </th:block>
+</th:block>
+</html>

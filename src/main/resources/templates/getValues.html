@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:include="common/common :: common('getValues')">
+    <th:block th:fragment="getValues">
+        <div th:text="'Uploaded currencies of brent oil'"></div>
+        <div>Graphic</div>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var xhr = new XMLHttpRequest();
+                var values;
+                var stringJson;
+                xhr.open("GET", "/get_values", true);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.send();
+                xhr.onreadystatechange = function () { // (3)
+                    if (xhr.readyState != 4) return;
+
+                    if (xhr.status != 200) {
+                        alert(xhr.status + ': ' + xhr.statusText);
+                        return;
+                    } else {
+                        values = xhr.responseText;
+                    }
+                    var numberOfValues = 0;
+
+
+
+                    var jsonValues = JSON.parse(values, function (key, value) {
+                        if(key == "date"){
+                            numberOfValues++;
+                            return  new Date(Date.parse(value));
+                        } else{
+                            return value;
+                        }
+                    });
+
+                    Date.prototype.daysInMonth = function() {
+                        return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
+                    };
+
+                    var beginDate = new Date(jsonValues[0].date);
+                    beginDate.setDate(0);
+
+
+                    var endDate = new Date(jsonValues[numberOfValues-1].date);
+                    var daysInMonth = endDate.daysInMonth();
+                    endDate.setDate(daysInMonth);
+
+                    stringJson = JSON.stringify(jsonValues);
+                    console.log(stringJson);
+
+                    var data = new google.visualization.DataTable();
+                    // Add columns
+                    data.addColumn('date', 'Date');
+                    data.addColumn('number', 'rate');
+                    for(i=0;i<numberOfValues;i++){
+                        data.addRow([jsonValues[i].date,jsonValues[i].open]);
+                    }
+
+
+                    var options = {
+                        title: 'Brent Oil Currencies',
+                        curveType: 'function',
+                        legend: {position: 'bottom'},
+                        hAxis: {
+                            title: "dates",
+                            viewWindow: {
+                                min: beginDate,
+                                max: endDate
+                            }
+                        },
+                        vAxis: {
+                            title: "Values"
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data, options);
+
+                }
+            }
+        </script>
+        <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    </th:block>
+
+</th:block>
+</html>

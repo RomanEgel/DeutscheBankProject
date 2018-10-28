@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="common/common :: common('greeting')">
+    <th:block th:fragment="greeting">
+        <h1> Hello, guest! </h1>
+        <h2> It's demo project </h2>
+    </th:block>
+</th:block>
+</html>
