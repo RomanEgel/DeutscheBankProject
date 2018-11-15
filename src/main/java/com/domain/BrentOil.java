@@ -50,4 +50,14 @@ public class BrentOil {
     public void setId(long id) {
         this.id = id;
     }
+
+    public boolean equals(BrentOil bo){
+        if(bo == null)
+            return false;
+        if(this.date.equals(bo.getDate()) && this.open == bo.getOpen()){
+            return true;
+        } else{
+            return false;
+        }
+    }
 }
