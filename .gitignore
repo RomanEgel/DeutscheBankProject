@@ -2,8 +2,6 @@
 # Idea files
 .idea
 *.iml
-*.xml
-
 
 # Binaries
 target
