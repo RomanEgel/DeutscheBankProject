@@ -1,15 +1,14 @@
-package com.htmlReader;
+package com.crawler;
 
-public class HtmlReaderState {
-   //private enum state{Off,Active,Closing,Opening}
+public class PriceGetterState {
 
     private boolean isActive;
 
-    public HtmlReaderState() {
+    public PriceGetterState() {
         this.isActive = false;
     }
 
-    public HtmlReaderState(boolean isActive) {
+    public PriceGetterState(boolean isActive) {
         this.isActive = isActive;
     }
 

@@ -13,7 +13,7 @@ public class WebSocketConfigurer implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/prices");
-        config.setApplicationDestinationPrefixes("/htmlReader");
+        config.setApplicationDestinationPrefixes("/actionHandlers");
     }
 
     @Override

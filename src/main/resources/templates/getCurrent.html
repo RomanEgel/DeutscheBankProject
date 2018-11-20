@@ -30,10 +30,9 @@
             window.onbeforeunload = endCon;
 
             function endCon() {
-                stompClient.send("/htmlReader/state", {}, JSON.stringify({'isActive': false}));
+                stompClient.send("/actionHandlers/state", {}, JSON.stringify({'isActive': false}));
                 return false;
             }
-
 
 
             function connect() {
@@ -47,7 +46,7 @@
                         }
                         showGreeting(JSON.parse(greeting.body));
                     });
-                    stompClient.send("/htmlReader/state", {}, JSON.stringify({'isActive': true}));
+                    stompClient.send("/actionHandlers/state", {}, JSON.stringify({'isActive': true}));
                 });
             }
 

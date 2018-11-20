@@ -1,25 +1,18 @@
 package com.controller;
 
-import com.htmlReader.HtmlReader;
-import com.htmlReader.HtmlReaderState;
-import com.repository.BrentOilRepository;
+import com.crawler.PriceGetterState;
+import com.crawler.XMarketsPriceGetter;
+import com.actionHandlers.CurrentPriceViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 @Controller
 public class MainController {
 
-    private HtmlReader htmlReader = null;
+    private CurrentPriceViewer priceGetter = null;
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -35,34 +28,24 @@ public class MainController {
     }
 
     @MessageMapping("/state")
-    public void changeState(HtmlReaderState state){
+    public void changeState(PriceGetterState state){
         if(state.getIsActive()){
-            if(htmlReader==null) {
-                htmlReader = new HtmlReader(simpMessagingTemplate);
-                new Thread(htmlReader).start();
+            if(priceGetter==null) {
+                priceGetter = new CurrentPriceViewer(simpMessagingTemplate, new XMarketsPriceGetter());
+                new Thread(priceGetter).start();
             }
         } else {
-            if(htmlReader != null) {
-                htmlReader.setEndFlag(true);
-                htmlReader.endConnection();
+            if(priceGetter != null) {
+                priceGetter.setEndFlag(true);
+                priceGetter.endConnection();
+                priceGetter = null;
             }
         }
-    }
-
-    @GetMapping("/getValues")
-    public String getValues(){
-        return "getValues";
     }
 
     @GetMapping("/uploadValues")
     public String uploadValues(){
         return "uploadValues";
     }
-
-    @GetMapping("/uploadCurrent")
-    public String uploadCurrent(){
-        return "getCurrent";
-    }
-
 
 }

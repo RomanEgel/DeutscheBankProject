@@ -2,8 +2,8 @@ package com.domain;
 
 public class BrentDates {
 
-    String fromDate;
-    String toDate;
+    private String fromDate;
+    private String toDate;
 
     public BrentDates() {
 

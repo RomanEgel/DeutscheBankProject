@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c7b34e6-d095-404a-9a08-274992c8405f" name="Default" comment="" />
+    <list default="true" id="5c7b34e6-d095-404a-9a08-274992c8405f" name="Default" comment="DeutscheBankProject v1.1&#10;&#10;Changes and new features:&#10;-added handler of real-time prices&#10;-">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/actionHandlers/CurrentPriceViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/htmlReader/HtmlReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/htmlReader/HtmlReaderState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/crawler/PriceGetterState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manager/DBManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/webSocket/WebSocketConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/webSocket/WebSocketConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/navBar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/navBar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/getCurrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/getCurrent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/getValues.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/greeting.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/greeting.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/uploadValues.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/uploadValues.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,11 +33,77 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BrentOil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java">
+      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            <state relative-caret-position="181">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryPriceSaver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/actionHandlers/HistoryPriceSaver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UploadingController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="31" column="33" lean-forward="true" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IntrinioPriceGetter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/crawler/IntrinioPriceGetter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1343">
+              <caret line="109" selection-start-line="109" selection-end-line="109" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CurrentPriceViewer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/actionHandlers/CurrentPriceViewer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="453">
+              <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XMarketsPriceGetter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/crawler/XMarketsPriceGetter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -25,29 +111,26 @@
       <file leaf-file-name="BrentDates.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
-              <folding>
-                <element signature="e#313#314#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="85">
+              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UploadingController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java">
+      <file leaf-file-name="BrentOil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="104" column="49" lean-forward="true" selection-start-line="104" selection-start-column="49" selection-end-line="104" selection-end-column="49" />
+            <state relative-caret-position="357">
+              <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <file leaf-file-name="BrentOilRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+            <state relative-caret-position="136">
+              <caret line="17" column="54" lean-forward="true" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -58,8 +141,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -68,27 +151,15 @@
       <find>da</find>
       <find>data</find>
       <find>datas</find>
+      <find>HtmlReaderState</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/App.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/user/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/user/User.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/static/js/runtime~main.229c360f.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/static/js/main.33e710de.chunk.js" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/storage/StorageProperties.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/storage/UploadLocation.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/storage/FileSystemStorageService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/FileUploadController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/js/index.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/repository/UserRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/js/brent.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/js/brentValues.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/brentOil/BrentOil.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/js/chart.js" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/js/valueRequest.js" />
         <option value="$PROJECT_DIR$/src/main/resources/static/upload_file.html" />
         <option value="$PROJECT_DIR$/src/main/resources/static/index.html" />
@@ -97,18 +168,48 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/upload_file.html" />
         <option value="$PROJECT_DIR$/src/main/resources/something.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/something.html" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/getValues.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/uploadValues.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/uploadCurrent.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/controller/MainController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/greeting.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/common/common.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/prediction/KalmanFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/webSocket/WebSocketConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/controller/RespondingController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/App.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/htmlReader/htmlReaderState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/htmlReader/HtmlReaderState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/DBManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/htmlReader/HtmlReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/priceGetter/HtmlReaderState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/priceGetter/PriceGetterState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/crawler/priceGetter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/priceGetter/XMarketsPriceGetter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/IntrinioThreads.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/XMarketsThread.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/crawler/PriceGetter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/crawler/PriceGetterState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/manager/DBManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/IntrinioThread.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/HistorySaver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/HistoryPriceHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/Viewer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/CurrentPriceHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/CurrentPriceViewer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/crawler/IntrinioPriceGetter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/threads/HistoryPriceSaver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/webSocket/WebSocketConfigurer.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/getCurrent.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/getValues.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/common/navBar.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/controller/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/greeting.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/uploadValues.html" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/crawler/XMarketsPriceGetter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/actionHandlers/HistoryPriceSaver.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
       </list>
     </option>
@@ -135,11 +236,16 @@
     <option name="width" value="902" />
     <option name="height" value="788" />
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -148,12 +254,123 @@
               <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="actionHandlers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="crawler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="prediction" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="webSocket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeutscheBankProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeutscheBankProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -280,14 +497,29 @@
       <workItem from="1540639480159" duration="1726000" />
       <workItem from="1540716573482" duration="14844000" />
       <workItem from="1540734020587" duration="7436000" />
+      <workItem from="1540802764667" duration="11592000" />
+      <workItem from="1540926542062" duration="688000" />
+      <workItem from="1541054931954" duration="5006000" />
+      <workItem from="1541070616383" duration="357000" />
+      <workItem from="1541076408573" duration="12624000" />
+      <workItem from="1541100660359" duration="4032000" />
+      <workItem from="1541140192268" duration="11707000" />
+      <workItem from="1541275440654" duration="591000" />
+      <workItem from="1541706106146" duration="65000" />
+      <workItem from="1542309551495" duration="8825000" />
+      <workItem from="1542352408187" duration="89000" />
+      <workItem from="1542608009501" duration="11968000" />
+      <workItem from="1542636820787" duration="15777000" />
+      <workItem from="1542731461490" duration="2776000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94885000" />
+    <option name="totallyTimeSpent" value="180982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -306,11 +538,11 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" weight="0.32972136" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32972136" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32972136" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32972136" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17019667" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32972136" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22617246" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -382,12 +614,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java</url>
-          <line>84</line>
+          <line>54</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/crawler/XMarketsPriceGetter.java</url>
+          <line>30</line>
           <properties />
-          <option name="timeStamp" value="32" />
+          <option name="timeStamp" value="86" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="87" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
@@ -396,114 +636,12 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/qrqr.html" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/MainController.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/qrqr.html" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/static/js/1.de760df0.chunk.js" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/static/js/main.33e710de.chunk.js" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Application.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/storage/StorageFileNotFoundException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/manifest.json" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/precache-manifest.4b205b1b24849d77f09d84e0b3c46798.js" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/static/js/runtime~main.229c360f.js" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.0.9.RELEASE/spring-beans-5.0.9.RELEASE.jar!/org/springframework/beans/BeanUtils.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/storage/StorageService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/storage/StorageProperties.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/storage/StorageException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/service-worker.js" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/storage/UploadLocation.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/uploadValues.html" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/storage/FileSystemStorageService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/FileUploadController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/js/index.js" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/js/brentValues.js" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/valueRequest.js" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/chart.js" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/css/jquery-ui.min.css" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/css/jquery-ui.css" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/jquery-ui.css" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/something.html" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/greeting.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/uploadCurrent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/common/common.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="58" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/common/navBar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/uploadValues.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-116">
-          <caret line="1" column="15" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/getValues.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-646">
-          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/2.0.5.RELEASE/spring-boot-configuration-processor-2.0.5.RELEASE.jar!/org/springframework/boot/configurationprocessor/json/JSONObject.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -511,20 +649,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.0.9.RELEASE/spring-tx-5.0.9.RELEASE.jar!/org/springframework/transaction/support/TransactionSynchronizationManager.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="213" selection-start-line="213" selection-end-line="213" />
-          <folding>
-            <element signature="e#8529#8530#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -553,9 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#903#904#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -566,34 +691,245 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+        <state relative-caret-position="208">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prediction.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prediction/KalmanFilter/fq/KalmanFilter.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.0.9.RELEASE/spring-context-5.0.9.RELEASE.jar!/org/springframework/scheduling/support/DelegatingErrorHandlingRunnable.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+        <state relative-caret-position="188">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.0.9.RELEASE/spring-context-5.0.9.RELEASE.jar!/org/springframework/scheduling/support/ScheduledMethodRunnable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/webSocket/WebSocketConfig.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/RespondingController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/common/common.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="19" column="124" selection-start-line="19" selection-start-column="124" selection-end-line="19" selection-end-column="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="747" selection-start-line="747" selection-end-line="747" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-messaging/5.0.9.RELEASE/spring-messaging-5.0.9.RELEASE.jar!/org/springframework/messaging/handler/invocation/AbstractMethodMessageHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="365" selection-start-line="365" selection-end-line="365" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prediction/KalmanFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/crawler/PriceGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding>
-            <element signature="e#313#314#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.9.RELEASE/spring-webmvc-5.0.9.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="570" selection-start-line="570" selection-end-line="570" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.9.RELEASE/spring-web-5.0.9.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        <state relative-caret-position="204">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.9.RELEASE/spring-webmvc-5.0.9.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/getValues.html" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/getCurrent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-363">
+          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/common/navBar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/manager/DBManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/webSocket/WebSocketConfigurer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/greeting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/uploadValues.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="71" selection-start-line="12" selection-start-column="71" selection-end-line="12" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/crawler/PriceGetterState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-messaging/5.0.9.RELEASE/spring-messaging-5.0.9.RELEASE.jar!/org/springframework/messaging/handler/invocation/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="114" selection-start-line="114" selection-end-line="114" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/crawler/XMarketsPriceGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentDates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/domain/BrentOil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/repository/BrentOilRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="54" lean-forward="true" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/controller/UploadingController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="104" column="49" lean-forward="true" selection-start-line="104" selection-start-column="49" selection-end-line="104" selection-end-column="49" />
+        <state relative-caret-position="136">
+          <caret line="31" column="33" lean-forward="true" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/crawler/IntrinioPriceGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/actionHandlers/CurrentPriceViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/actionHandlers/HistoryPriceSaver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
