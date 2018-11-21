@@ -1,21 +1,16 @@
-package com.controller;
+package com.twoez.controller;
 
 
-import com.crawler.IntrinioPriceGetter;
-import com.domain.BrentDates;
-import com.domain.BrentOil;
-import com.prediction.KalmanFilter;
-import com.repository.BrentOilRepository;
-import com.actionHandlers.HistoryPriceSaver;
+import com.twoez.crawler.IntrinioPriceGetter;
+import com.twoez.domain.BrentDates;
+import com.twoez.repository.BrentOilRepository;
+import com.twoez.actionHandlers.HistoryPriceSaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.*;
 
 @Controller
 public class UploadingController {

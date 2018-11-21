@@ -1,7 +1,7 @@
-package com.actionHandlers;
+package com.twoez.actionHandlers;
 
-import com.domain.BrentOil;
-import com.repository.BrentOilRepository;
+import com.twoez.domain.BrentOil;
+import com.twoez.repository.BrentOilRepository;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package com.actionHandlers;
+package com.twoez.actionHandlers;
 
-import com.crawler.PriceGetter;
-import com.domain.BrentOil;
+import com.twoez.crawler.PriceGetter;
+import com.twoez.domain.BrentOil;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 

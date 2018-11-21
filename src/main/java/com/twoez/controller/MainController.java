@@ -1,8 +1,8 @@
-package com.controller;
+package com.twoez.controller;
 
-import com.crawler.PriceGetterState;
-import com.crawler.XMarketsPriceGetter;
-import com.actionHandlers.CurrentPriceViewer;
+import com.twoez.crawler.PriceGetterState;
+import com.twoez.crawler.XMarketsPriceGetter;
+import com.twoez.actionHandlers.CurrentPriceViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

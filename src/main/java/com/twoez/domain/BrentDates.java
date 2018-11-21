@@ -1,4 +1,4 @@
-package com.domain;
+package com.twoez.domain;
 
 public class BrentDates {
 

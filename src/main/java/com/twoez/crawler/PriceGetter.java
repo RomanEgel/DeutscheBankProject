@@ -1,7 +1,7 @@
-package com.crawler;
+package com.twoez.crawler;
 
-import com.domain.BrentDates;
-import com.domain.BrentOil;
+import com.twoez.domain.BrentDates;
+import com.twoez.domain.BrentOil;
 
 import java.util.ArrayList;
 

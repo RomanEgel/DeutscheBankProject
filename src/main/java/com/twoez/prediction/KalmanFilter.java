@@ -1,4 +1,4 @@
-package com.prediction;
+package com.twoez.prediction;
 
 public class KalmanFilter {
 
