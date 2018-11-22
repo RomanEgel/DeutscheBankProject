@@ -2,11 +2,6 @@ package com.twoez.crawler;
 
 import com.twoez.domain.BrentDates;
 import com.twoez.domain.BrentOil;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -14,9 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class XMarketsPriceGetter implements PriceGetter{
+public class XMarketsPriceGetter implements PriceGetter, Runnable{
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+    private Consumer<BrentOil> listener;
 
     private URL url;
 
@@ -62,5 +60,38 @@ public class XMarketsPriceGetter implements PriceGetter{
     @Override
     public ArrayList<BrentOil> getHistory(BrentDates brentDates) {
         return null;
+    }
+
+    public void setConsumer(Consumer<BrentOil> consumer){
+        listener = consumer;
+    }
+
+    @Override
+    public void run() {
+        if(listener == null){
+            throw new RuntimeException("Listener was not provided");
+        }
+        BrentOil price = getCurrentPrice();
+        BrentOil previousPrice = null;
+        int count = 0;
+        while (true){
+             if(price.equals(previousPrice)){
+                 try {
+                     Thread.sleep(300);
+                     price = getCurrentPrice();
+                     count++;
+                     if(count > 15){
+                         listener.accept(price);
+                         count = 0;
+                     }
+                 } catch (InterruptedException ex){
+                     return;
+                 }
+             } else{
+                 listener.accept(price);
+                 previousPrice = price;
+                 price = getCurrentPrice();
+             }
+        }
     }
 }

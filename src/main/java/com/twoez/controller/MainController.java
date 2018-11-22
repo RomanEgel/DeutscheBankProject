@@ -1,7 +1,8 @@
 package com.twoez.controller;
 
+import com.twoez.CurrentPriceListener;
+import com.twoez.PriceDispatcher;
 import com.twoez.crawler.PriceGetterState;
-import com.twoez.crawler.XMarketsPriceGetter;
 import com.twoez.actionHandlers.CurrentPriceViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -30,16 +31,9 @@ public class MainController {
     @MessageMapping("/state")
     public void changeState(PriceGetterState state){
         if(state.getIsActive()){
-            if(priceGetter==null) {
-                priceGetter = new CurrentPriceViewer(simpMessagingTemplate, new XMarketsPriceGetter());
-                new Thread(priceGetter).start();
-            }
+            PriceDispatcher.dispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate));
         } else {
-            if(priceGetter != null) {
-                priceGetter.setEndFlag(true);
-                priceGetter.endConnection();
-                priceGetter = null;
-            }
+            PriceDispatcher.dispatcher.removeListenerByClient(simpMessagingTemplate);
         }
     }
 
