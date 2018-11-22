@@ -18,8 +18,7 @@
 
  1. Real-time data processing
  2. Accurate price prediction
- 3. Support of obtaining historical Brent oil price data
- 4. Graphic display of historical, real-time and predicted data
+ 3. Graphic display of historical, real-time and predicted data
 
 ## Business requirements
 
@@ -32,16 +31,16 @@
  3. Project consists of several parts with different functionalities. At least:
     * [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) for collecting whole project functionalities in one control panel
     * Database for storing all predicted, real-time and historical data
-    * Data collector for real-time and historical data
+    * Data collector for real-time data
     * Predictor
 
 ## Functional requirements
 
- 1) UI as control panel for end users
- 2) Prediction for historical and real-time data
- 3) Graphical representation for results
- 4) Permanent storage
- 5) Ability to change prediction algorithm on-user-demand
+ 1. UI as control panel for end users
+ 2. Prediction for historical and real-time data
+ 3. Graphical representation for results
+ 4. Permanent storage
+ 5. Ability to change prediction algorithm on-user-demand
 
 ## Non-Functional requirements
 
@@ -60,6 +59,7 @@
 
  1. Project must maintain [WebSocket](https://www.websocket.org/) technology for permanent connection and displaying real-time prices
  2. Project must store historical and real-time data in database(current is [MySQL](https://www.mysql.com/))
- 3. Architecture of database suggests unique timestamps for each entry and three different tables for historical, real-time and predicted data
+ 3. Architecture of database suggests composite unique key containing timestamp and source of data for each entry stored in one table
  4. Ability to predict Brent oil prices with machine learning algorithms(Self-written algorithms and libraries for example [Spark MLLib](https://spark.apache.org/docs/latest/index.html))
  5. REST API
+ 6. Historical data obtained before server is started for performance purposes using separate [tool](https://github.com/vladdord/HistoryUploader) which currently in another repository
