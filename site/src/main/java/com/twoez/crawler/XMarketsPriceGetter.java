@@ -1,5 +1,6 @@
 package com.twoez.crawler;
 
+import com.twoez.common.HTMLReaderHelper;
 import com.twoez.domain.BrentDates;
 import com.twoez.domain.BrentOil;
 import java.net.MalformedURLException;

@@ -2,7 +2,7 @@
 # Idea files
 .idea
 *.iml
-
+*.properties
 # Binaries
 target
 

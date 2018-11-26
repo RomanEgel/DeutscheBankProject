@@ -1,4 +1,4 @@
-package com.twoez.crawler;
+package com.twoez.common;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ public class HTMLReaderHelper {
 
     private final URL currentURL;
 
-    HTMLReaderHelper(URL url){
+    public HTMLReaderHelper(URL url){
         currentURL = url;
     }
 
@@ -28,7 +28,7 @@ public class HTMLReaderHelper {
         return new StringIterator();
     }
 
-    class CharIterator implements java.util.Iterator<Character>{
+    public class CharIterator implements java.util.Iterator<Character>{
 
         private InputStream urlStream;
 
@@ -78,7 +78,7 @@ public class HTMLReaderHelper {
         }
     }
 
-    class StringIterator implements java.util.Iterator<String>{
+    public class StringIterator implements java.util.Iterator<String>{
 
         private CharIterator charPointer;
 
@@ -123,7 +123,7 @@ public class HTMLReaderHelper {
                     return null;
                 }
             }
-            while (currentChar != Character.valueOf('\n') && currentChar != Character.valueOf('\r')){
+            while (currentChar != Character.valueOf('\n') && currentChar != Character.valueOf('\r') && currentChar != null){
                 sb.append(currentChar);
                 currentChar = charPointer.next();
             }
