@@ -8,21 +8,14 @@
 
   Tool created with [Apache Maven](https://maven.apache.org/)
 
-  To build it use
-
-  ```mvn clean compile assembly:single```
-
+  To build it see README.md of parent directory
 
 ## Run
 
   To run it use command below
 
-  ```java -jar target/historyuploader-1.0-SNAPSHOT-jar-with-dependencies.jar -d [databaseType] -n [databaseName] -u [username]```
+  ```java -jar target/[jar-name].jar -d [databaseType] -n [databaseName] -u [username]```
 
 ## Requirements
 
   You need [JDK 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [MySQL](https://www.mysql.com/) server started
-
-## Reference
-
-  [Original project](https://github.com/RomanEgel/DeutscheBankProject)
