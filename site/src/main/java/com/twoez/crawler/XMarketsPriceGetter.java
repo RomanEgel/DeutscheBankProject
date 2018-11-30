@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class XMarketsPriceGetter implements PriceGetter, Runnable{
+public class XMarketsPriceGetter implements PriceGetter{
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     private Consumer<BrentOil> listener;
@@ -57,12 +57,7 @@ public class XMarketsPriceGetter implements PriceGetter, Runnable{
         String result = findIn.substring(findIn.indexOf('>'), findIn.lastIndexOf("</span><span")).substring(1);
         return Double.valueOf(result);
     }
-
     @Override
-    public ArrayList<BrentOil> getHistory(BrentDates brentDates) {
-        return null;
-    }
-
     public void setConsumer(Consumer<BrentOil> consumer){
         listener = consumer;
     }

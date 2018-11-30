@@ -1,12 +1,11 @@
 package com.twoez.crawler;
 
-import com.twoez.domain.BrentDates;
 import com.twoez.domain.BrentOil;
 
-import java.util.ArrayList;
+import java.util.function.Consumer;
 
-public interface PriceGetter {
+public interface PriceGetter extends Runnable {
     BrentOil getCurrentPrice();
 
-    ArrayList<BrentOil> getHistory(BrentDates brentDates);
+    void setConsumer(Consumer<BrentOil> consumer);
 }

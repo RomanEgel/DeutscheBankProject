@@ -1,6 +1,6 @@
 package com.twoez;
 
-import com.twoez.crawler.XMarketsPriceGetter;
+import com.twoez.crawler.PriceGetter;
 import com.twoez.domain.BrentOil;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
@@ -24,7 +24,7 @@ public class PriceDispatcher {
         }).start();
     }
 
-    public void setCurrentPriceUpdater(XMarketsPriceGetter getter){
+    public void setCurrentPriceUpdater(PriceGetter getter){
         getter.setConsumer(this::notifyListeners);
         new Thread(getter).start();
     }
