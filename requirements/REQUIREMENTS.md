@@ -11,36 +11,38 @@
 
 ## Goals
 
- 1. Development of software product for obtaining and processing financial data for [Brent oil](https://en.wikipedia.org/wiki/Brent_Crude)
- 2. Stable software capable of prediction prices for Brent oil
+ 1. To develop the stable software for Brent Oil price prediction
 
 ## Project objectives
 
- 1. Real-time data processing
- 2. Accurate price prediction
- 3. Graphic display of historical, real-time and predicted data
+ 1. Requirements for software are analyzed and documented in Software Requirements specification here it's Project reqirements
+ 2. Minimum viable product is developed
+ 3. Software is tested
+ 4. Desirable improvements integrated and tested
 
 ## Business requirements
 
- 1. Project represents web-site which contains several pages
- 2. Pages must contain:
-    * graphical representation of historical price data in user-defined date scope
-    * predicted prices in user-defined date scope
-    * real-time price ticker with date and time for last price
-    * greetings page explining project goals and navigation bar through all content
- 3. Project consists of several parts with different functionalities. At least:
-    * [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) for collecting whole project functionalities in one control panel
-    * Database for storing all predicted, real-time and historical data
-    * Data collector for real-time data
-    * Predictor
+* Software must have UI
+* Software must display historical, current and predicted prices
+* Predictions should be accurate
 
 ## Functional requirements
 
- 1. UI as control panel for end users
- 2. Prediction for historical and real-time data
- 3. Graphical representation for results
- 4. Permanent storage
- 5. Ability to change prediction algorithm on-user-demand
+ 1. High-level system overview:
+ ![Schema](Schema.png)
+ 2. Requirements for UI:
+    * graphical representation of historical price data in user-defined date scope as plot
+    * predicted prices in user-defined date scope in plot
+    * real-time price ticker on-demand in plot
+    * greetings page explining project goals and navigation bar through all content
+ 3. Data collection requirements:
+    * Historical data collected once by historyuploader which runs by admin before starting site
+    * real-time data collects as fast as it can be updated in source
+ 4. Prediction requirements:
+    * TODO
+ 5. Error handling:
+    * Scope sent to backend is checked for boundaries and after returned to user as filled JSON file to show the plot
+    * If requested scope has 0 data when 0 data is shown
 
 ## Non-Functional requirements
 
