@@ -2,7 +2,6 @@ package com.twoez.historyuploader;
 
 import java.sql.*;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 
 public class MySqlUploader implements DBUploader {
@@ -31,7 +30,7 @@ public class MySqlUploader implements DBUploader {
             throw new IllegalStateException("Configuration was not provided");
         }
         try {
-            System.out.println("Creating table " + TABLE_NAME);
+            System.out.println("Createing table " + TABLE_NAME);
             Statement createTableStatement = connection.createStatement();
             createTableStatement.execute(createTableCommand);
         } catch (SQLException ex){
@@ -41,11 +40,12 @@ public class MySqlUploader implements DBUploader {
         StringBuilder commandBuilder = new StringBuilder();
         String insert_statement_initializer = "insert into " + TABLE_NAME + " values ";
         commandBuilder.append(insert_statement_initializer);
+        String value = "(\'%s\',%.2f, \'%s\')";
         float current = 0;
         float total = priceData.size();
         for(Map.Entry<Timestamp, Double> entry : priceData.entrySet()){
             String timestamp = entry.getKey().toString();
-            String formattedValue = "('" + timestamp.substring(0, timestamp.length() - 2) + "', " + String.format(Locale.ROOT, "%.2f", entry.getValue()) + ", '" + JSONPriceGetter.SOURCE_NAME + "')";
+            String formattedValue = String.format(value, timestamp.substring(0, timestamp.length() - 2), entry.getValue(),JSONPriceGetter.SOURCE_NAME);
             commandBuilder.append(formattedValue);
             current++;
             String command = commandBuilder.toString();
@@ -60,7 +60,7 @@ public class MySqlUploader implements DBUploader {
             Statement insertStatement = connection.createStatement();
             insertStatement.executeUpdate(commandBuilder.toString());
         } catch (SQLException ex){
-            ex.printStackTrace();
+            throw new RuntimeException("Unable to insert data");
         }
     }
 
