@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Qualifier("dbSaver")
 public class SavingCurrentPriceListener implements Listener<BrentOil> {
-
     private BrentOilRepository brentOilRepository;
 
     @Override

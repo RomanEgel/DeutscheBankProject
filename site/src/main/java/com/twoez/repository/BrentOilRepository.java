@@ -2,8 +2,10 @@ package com.twoez.repository;
 
 import com.twoez.domain.BrentOil;
 import com.twoez.domain.BrentOilPK;
+import com.twoez.domain.SourceName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;

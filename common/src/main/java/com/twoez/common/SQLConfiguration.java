@@ -1,13 +1,15 @@
-package com.twoez.historyuploader;
+package com.twoez.common;
 
-public class SQLConfiguration {
+import java.io.Serializable;
+
+public class SQLConfiguration implements Serializable {
     private final String DB_NAME;
 
     private final String LOGIN;
 
     private final String PASSWORD;
 
-    SQLConfiguration(String dbName, String login, String password){
+    public SQLConfiguration(String dbName, String login, String password) {
         if(dbName == null || login == null){
             throw new IllegalArgumentException("Database name and login must be provided");
         }

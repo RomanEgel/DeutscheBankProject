@@ -8,7 +8,7 @@
 
   Tool created with [Apache Maven](https://maven.apache.org/)
 
-  To build it see README.md of parent directory
+  To build it see **README.md** of parent directory
 
 ## Run
 

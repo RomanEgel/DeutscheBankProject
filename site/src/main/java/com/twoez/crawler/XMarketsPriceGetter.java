@@ -48,7 +48,7 @@ public class XMarketsPriceGetter implements PriceGetter{
                 entries.add(item);
             }
         }
-        return new BrentOil(new BrentOilPK(getDate(entries.get(0)),SourceName.RealTImeXMarkets),getPrice(entries.get(1)));
+        return new BrentOil(new BrentOilPK(getDate(entries.get(0)),SourceName.RealTimeXMarkets),getPrice(entries.get(1)));
     }
 
     private Date getDate(String findIn){
@@ -100,10 +100,5 @@ public class XMarketsPriceGetter implements PriceGetter{
                  count = 0;
              }
         }
-    }
-
-    @Autowired
-    public void setBrentOilRepository(BrentOilRepository brentOilRepository) {
-        this.brentOilRepository = brentOilRepository;
     }
 }

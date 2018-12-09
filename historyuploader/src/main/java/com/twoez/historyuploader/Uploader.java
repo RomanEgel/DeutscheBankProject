@@ -1,16 +1,20 @@
 package com.twoez.historyuploader;
 
 
+import com.twoez.common.SQLConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 @CommandLine.Command(name = "Uploader", mixinStandardHelpOptions = true, version = "0.1")
 public class Uploader implements Callable<Integer> {
+
+    private Logger logger = LoggerFactory.getLogger(Uploader.class);
 
     @CommandLine.Option(names = {"-d","--db_type"}, required = true, description = "Type of database where you want to store your prices.\n" + "Currently available: [mysql]")
 
@@ -35,19 +39,21 @@ public class Uploader implements Callable<Integer> {
     }
 
     private Uploader(){
-        uploadingRules.put("MYSQL", new MySqlUploader());
+        uploadingRules.put("MYSQL", new MySqlUploader(JSONPriceGetter.SOURCE_NAME));
     }
 
     @Override
     public Integer call() throws Exception {
         DBUploader uploader = uploadingRules.get(dbType.toUpperCase());
         uploader.setConfiguration(new SQLConfiguration(dbName,login,password));
-        System.out.println("Starting downloading prices");
+        logger.info("Starting downloading prices");
         JSONPriceGetter getter = new JSONPriceGetter();
         Map<Timestamp, Double> prices = getter.getPrices();
-        System.out.println("Prices downloaded");
+        logger.info("Prices downloaded");
         uploader.fillDB(prices);
-        System.out.println("Database filled");
+        logger.info("Database filled\nStarting creating procedure for predictor dataset");
+        uploader.createDatasetProcedure();
+        uploader.createDailyDatasetAndTrigger();
         return 0;
     }
 }

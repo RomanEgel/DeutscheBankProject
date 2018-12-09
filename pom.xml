@@ -12,6 +12,7 @@
         <module>common</module>
         <module>site</module>
         <module>historyuploader</module>
+        <module>predictor</module>
     </modules>
     <packaging>pom</packaging>
 </project>

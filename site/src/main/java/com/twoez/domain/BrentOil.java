@@ -10,7 +10,7 @@ public class BrentOil {
     @EmbeddedId
     private BrentOilPK id;
 
-    double price;
+    private double price;
 
     public BrentOil() {
 
@@ -38,12 +38,9 @@ public class BrentOil {
     }
 
     public boolean equals(BrentOil bo){
-        if(bo == null)
-            return false;
-        if(this.id.getPrice_timestamp().equals(bo.getId().getPrice_timestamp()) && this.price == bo.getPrice()){
-            return true;
-        } else{
+        if(bo == null) {
             return false;
         }
+        return this.id.getPrice_timestamp().equals(bo.getId().getPrice_timestamp()) && this.price == bo.getPrice();
     }
 }

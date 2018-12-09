@@ -25,9 +25,6 @@ public class MainController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Autowired
-    private PriceDispatcher dispatcher;
-
     @GetMapping("/")
     public String greeting(){
         return "greeting";
@@ -41,9 +38,9 @@ public class MainController {
     @MessageMapping("/state")
     public void changeState(PriceGetterState state){
         if(state.getIsActive()){
-            dispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate));
+            PriceDispatcher.dispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate));
         } else {
-            dispatcher.removeListenerByClient(simpMessagingTemplate);
+            PriceDispatcher.dispatcher.removeListenerByHash(simpMessagingTemplate.hashCode());
         }
     }
 
