@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -41,7 +42,7 @@ public class PredictionConsumer implements Runnable {
         if(policy == null) throw new RuntimeException("Consumer for predicted prices not set");
         ConsumerRecords<String, String> consumerRecords;
         while (true){
-            consumerRecords = kafkaConsumer.poll(1000);
+            consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));
             if(consumerRecords.isEmpty()){
                 try {
                     Thread.sleep(300);
