@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MySqlUploader implements DBUploader{
 
-    private Logger logger = LoggerFactory.getLogger(MySqlUploader.class);
+    private static final Logger logger = LoggerFactory.getLogger(MySqlUploader.class);
 
     private Connection connection;
 

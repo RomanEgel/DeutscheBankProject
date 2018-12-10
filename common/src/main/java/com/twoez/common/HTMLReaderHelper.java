@@ -37,7 +37,9 @@ public class HTMLReaderHelper {
         private Queue<Character> buffer;
 
         private CharIterator() throws IOException {
-            urlStream = currentURL.openStream();
+            while (urlStream == null) {
+                urlStream = currentURL.openStream();
+            }
             isValid = true;
             buffer = new ArrayDeque<>();
         }
