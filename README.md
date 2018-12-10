@@ -15,7 +15,7 @@ It's a repository of our project. It consists of several modules:
   Kafka need to be correctly configured and we will provide brief course how to do it.
   1. After you downloaded go to `config` directory where you can find 2 files: `server.properties` and `zookeeper.properties`.
   2. Make sure that in `zookeeper.properties` configuration `clientPort=2181` and `maxClientCnxns=1000` are set
-  3. In `server.properties` variable `zookeeper.connect=localhost:2181` must be set.
+  3. In `server.properties` variables `zookeeper.connect=localhost:2181` and `host.name=localhost` must be set. Last to allow connection to Kafka when network connection is not available.
   4. After that you can run Zookeeper as `./zookeeper-server-start.sh -daemon ../config/zookeeper.properties` from terminal.
   5. Now you need to create 2 topics in Kafka. For that use: `./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic [topic_name] --config retention.ms=2000` where topic names are **current_price** and **predicted_prices**. Configuration variable `retention.ms` sets frequency of topic purging.
   6. Now you are ready to run Kafka as message broker for whole system. Use: `./kafka-server-start.sh -daemon ../config/server.properties`
