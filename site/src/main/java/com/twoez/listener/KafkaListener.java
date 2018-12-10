@@ -22,7 +22,7 @@ public class KafkaListener implements Listener<BrentOil> {
     }
 
     @Override
-    public int hash() {
-        return producerPrices.hashCode();
+    public String hash() {
+        return "kafkaListenerSingleton";
     }
 }

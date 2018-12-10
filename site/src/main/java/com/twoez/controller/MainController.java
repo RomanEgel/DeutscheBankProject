@@ -1,20 +1,25 @@
 package com.twoez.controller;
 
-import com.twoez.crawler.PriceGetterState;
 import com.twoez.dispatcher.PriceDispatcher;
 import com.twoez.domain.BrentOil;
 import com.twoez.listener.CurrentPriceListener;
+import com.twoez.listener.ListenerState;
+import com.twoez.listener.PredictedListener;
 import com.twoez.repository.BrentOilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 public class MainController {
@@ -26,7 +31,10 @@ public class MainController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @GetMapping("/")
-    public String greeting(){
+    public String greeting(Model model){
+        List<String> names = new ArrayList<>();
+        names.add("Brent Oil");
+        model.addAttribute("names",names);
         return "greeting";
     }
 
@@ -36,12 +44,19 @@ public class MainController {
     }
 
     @MessageMapping("/state")
-    public void changeState(PriceGetterState state){
-        if(state.getIsActive()){
-            PriceDispatcher.dispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate));
+    public String changeState(ListenerState state, @Header("simpSessionId") String sessionId) {
+        if (state.getIsActive()) {
+            PriceDispatcher.dispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate,sessionId));
+            if (state.isPrediction()) {
+                PriceDispatcher.dispatcher.addPredictedPriceListener(new PredictedListener(simpMessagingTemplate,sessionId));
+            }
         } else {
-            PriceDispatcher.dispatcher.removeListenerByHash(simpMessagingTemplate.hashCode());
+            if (state.isPrediction()) {
+                PriceDispatcher.dispatcher.removePredictedListenerByHash(sessionId);
+            }
+            PriceDispatcher.dispatcher.removeListenerByHash(sessionId);
         }
+        return sessionId;
     }
 
     @GetMapping("/uploadValues")

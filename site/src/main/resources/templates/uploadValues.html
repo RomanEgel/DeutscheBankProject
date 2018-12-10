@@ -2,15 +2,66 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="common/common :: common('uploadValues')">
     <th:block th:fragment="uploadValues">
-        <label>Choose period that you're interested in</label>
+        <p></p>
+        <h6>Choose period that you're interested in</h6>
+        <p></p>
         <div class="input-group mb-3">
-            <input id="date1" type="date"  name="fromDate" >
-            <input id="date2" type="date"  name="toDate">
+            <span class="input-group-text" style="background: darkslategrey; color: white">From</span>
+            <input id="date1" type="date"  name="fromDate" onchange="date1Changed()">
+            <span class="input-group-text" style="background: darkslategrey; color: white">To</span>
+            <input id="date2" type="date"  name="toDate" onchange="date2Changed()">
+            <div class="input-group-prepend ">
+                <label class="input-group-text" for="options" style="background: darkslategrey; color: white">Options</label>
+            </div>
+            <select class="custom-select" id="options">
+                <option value="1">Brent Oil Crude</option>
+            </select>
+            <div class="input-group-prepend ">
+                <label class="input-group-text" for="prediction" style="background: darkslategrey; color: white">Prediction</label>
+            </div>
+            <select class="custom-select" id="prediction">
+                <option value="1">Without prediction</option>
+                <option value="2">Including prediction</option>
+            </select>
+            <button onclick="loadValues()" id="button" type="button" class="btn btn-primary">Load brent oil history</button>
         </div>
-        <button onclick="loadValues()" id="button" type="button" class="btn btn-primary">Load brent oil history</button>
+
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             window.onload = findOutRange;
+
+            function date1Changed(){
+                var date1 = document.getElementById("date1").value;
+                var max = document.getElementById("date1").max;
+                var min = document.getElementById("date1").min;
+                var date2 = document.getElementById("date2").value;
+                if(date1 > max){
+                    document.getElementById("date1").value = max;
+                }
+                else if(date1 < min){
+                    document.getElementById("date1").value = min;
+                }
+                else if(date2 != "" && date1 > date2){
+                    document.getElementById("date1").value = date2;
+                }
+
+            }
+
+            function date2Changed(){
+                var date2 = document.getElementById("date2").value;
+                var max = document.getElementById("date2").max;
+                var min = document.getElementById("date2").min;
+                var date1 = document.getElementById("date1").value;
+                if(date2 > max){
+                    document.getElementById("date2").value = max;
+                }
+                else if(date2 < min){
+                    document.getElementById("date2").value = min;
+                }
+                else if(date1 != "" && date2 < date1){
+                    document.getElementById("date2").value = date1;
+                }
+            }
 
             function findOutRange() {
                 var xhr = new XMLHttpRequest();
@@ -27,11 +78,16 @@
                     var vals = JSON.parse(values);
                     var d1 = new Date(Date.parse(vals[0])).toISOString().substr(0,10);
                     var d2 = new Date(Date.parse(vals[1])).toISOString().substr(0,10);
-
+                    var d3 = new Date(Date.parse(vals[1]));
+                    d3.setDate(d3.getDate()-1);
                     document.getElementById("date1").min = d1;
                     document.getElementById("date1").max = d2;
                     document.getElementById("date2").min = d1;
                     document.getElementById("date2").max = d2;
+
+                    document.getElementById("date1").value = d3.toISOString().substr(0,10);
+                    document.getElementById("date2").value = d2;
+
 
                 }
             }
@@ -45,7 +101,16 @@
                 var values;
                 date1 = document.getElementById("date1").value;
                 date2 = document.getElementById("date2").value;
-                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '" }';
+                if(date1 == "" || date2== "" )
+                {
+                    alert("wrong input");
+                    return;
+                }
+                var flag = false;
+                if(document.getElementById("prediction").value == 2){
+                    flag = true;
+                }
+                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '", "withPrediction": "' + flag.toString() + '" }';
                 var jsonDates = JSON.parse(str);
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", '/uploadValues', true);
@@ -63,6 +128,11 @@
             }
 
             function drawChart(values) {
+                if(values == null){
+                    button.innerHTML = 'load brent oil history';
+                    button.disabled = false;
+                    return;
+                }
                 var stringJson;
                 var numberOfValues = 0;
 
@@ -75,18 +145,6 @@
                     }
                 });
 
-                Date.prototype.daysInMonth = function() {
-                    return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
-                };
-
-                var beginDate = new Date(jsonValues[0].id);
-                beginDate.setDate(0);
-
-
-                var endDate = new Date(jsonValues[numberOfValues-1].id);
-                var daysInMonth = endDate.daysInMonth();
-                endDate.setDate(daysInMonth);
-
                 stringJson = JSON.stringify(jsonValues);
                 console.log(stringJson);
 
@@ -94,7 +152,7 @@
                 // Add columns
                 data.addColumn('date', 'Date');
                 data.addColumn('number', 'rate');
-                for(i=0;i<numberOfValues;i++){
+                for(var i=0;i<numberOfValues;i++){
                     data.addRow([jsonValues[i].id,jsonValues[i].price]);
                 }
 
@@ -104,18 +162,14 @@
                     curveType: 'function',
                     legend: {position: 'bottom'},
                     hAxis: {
-                        title: "dates",
-                        viewWindow: {
-                            min: beginDate,
-                            max: endDate
-                        }
+                        title: "dates"
                     },
                     vAxis: {
                         title: "Values"
                     }
                 };
 
-                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
 
                 chart.draw(data, options);
                 button.innerHTML = 'load brent oil history';

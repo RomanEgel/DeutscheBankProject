@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Locale;
 import java.util.Map;
 
 public class MySqlUploader implements DBUploader{
@@ -48,12 +49,11 @@ public class MySqlUploader implements DBUploader{
         StringBuilder commandBuilder = new StringBuilder();
         String insert_statement_initializer = "insert into " + TABLE_NAME + " values ";
         commandBuilder.append(insert_statement_initializer);
-        String value = "(\'%s\',%.2f, \'%s\')";
         float current = 0;
         float total = priceData.size();
         for(Map.Entry<Timestamp, Double> entry : priceData.entrySet()){
             String timestamp = entry.getKey().toString();
-            String formattedValue = String.format(value, timestamp.substring(0, timestamp.length() - 2), entry.getValue(),sourceName);
+            String formattedValue = "('" + timestamp.substring(0, timestamp.length() - 2) + "', " + String.format(Locale.ROOT,"%.2f", entry.getValue()) + ", '" + JSONPriceGetter.SOURCE_NAME + "')";
             commandBuilder.append(formattedValue);
             current++;
             String command = commandBuilder.toString();

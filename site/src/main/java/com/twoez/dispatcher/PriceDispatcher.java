@@ -29,27 +29,28 @@ public class PriceDispatcher {
         currentPriceListeners = new ArrayList<>();
         predictedListeners = new ArrayList<>();
         priceGetter.setConsumer(this::notifyListeners);
+        predictionGetter.setPolicy(this::notifyPredictionListeners);
         new Thread(priceGetter).start();
         new Thread(predictionGetter).start();
     }
 
     private void notifyListeners(BrentOil price){
-        new Thread(()->{
-            List<Listener<BrentOil>> listenersCopy;
-            synchronized (currentPriceListeners){
-                listenersCopy = new ArrayList<>(currentPriceListeners);
-            }
-            listenersCopy.forEach((listener)->listener.onUpdate(price));
-        }).start();
+        notifyListeners(price,currentPriceListeners);
     }
 
     private void notifyPredictionListeners(Double predictedPrice){
+        notifyListeners(predictedPrice,predictedListeners);
+    }
+
+    private <T> void notifyListeners(T value, List<Listener<T>> list){
         new Thread(()->{
-            List<Listener<Double>> listenersCopy;
-            synchronized (currentPriceListeners){
-                listenersCopy = new ArrayList<>(predictedListeners);
+            List<Listener<T>> listenersCopy;
+            synchronized (list){
+                listenersCopy = new ArrayList<>(list);
             }
-            listenersCopy.forEach((listener)->listener.onUpdate(predictedPrice));
+            for (int i = listenersCopy.size() - 1; i >= 0; i--) {
+                listenersCopy.get(i).onUpdate(value);
+            }
         }).start();
     }
 
@@ -65,22 +66,19 @@ public class PriceDispatcher {
         }
     }
 
-    public void removeListenerByHash(int hash){
-        synchronized (currentPriceListeners){
-            for(int i = 0; i < currentPriceListeners.size(); i++){
-                if(currentPriceListeners.get(i).hash() == hash){
-                    currentPriceListeners.remove(i);
-                    i--;
-                }
-            }
-        }
+    public void removeListenerByHash(String hash){
+        removeListener(currentPriceListeners,hash);
     }
 
-    public void removePredictedListenerByHash(int hash){
-        synchronized (predictedListeners){
-            for(int i = 0; i < predictedListeners.size(); i++){
-                if(predictedListeners.get(i).hash() == hash){
-                    predictedListeners.remove(i);
+    public void removePredictedListenerByHash(String hash){
+        removeListener(predictedListeners,hash);
+    }
+
+    private <T> void removeListener(List<Listener<T>> listeners, String hash){
+        synchronized (listeners){
+            for(int i = 0; i < listeners.size(); i++){
+                if(listeners.get(i).hash() == hash){
+                    listeners.remove(i);
                     i--;
                 }
             }

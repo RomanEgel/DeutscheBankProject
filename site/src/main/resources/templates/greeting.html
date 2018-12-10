@@ -2,7 +2,207 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="common/common :: common('greeting')">
     <th:block th:fragment="greeting">
-        <h1> Deutsche Bank Project </h1>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+        <div id="main-content" class="container">
+            <p/>
+            <h5> Welcome to <strong>2ez</strong> project </h5>
+            <p/>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form" style="width: 42rem;">
+                        <table class="table table-striped" id="myTable">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Current Price</th>
+                                <th scope="col">+/-</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="name : ${names}">
+                                <td><a href="/getCurrent" th:text="${name}"/></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-left: 230px">
+                    <label class="input-group-text" for="options" style="background: darkslategrey; color: white">Chart for last month history</label>
+                    <select class="custom-select" id="options">
+                        <option value="1" selected>Select currency</option>
+                        <option value="2">Brent Oil Crude</option>
+                    </select>
+                    <div id="curve_chart" style="width: 600px; height: 400px; margin-right: 150px"></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var stompClient = null;
+            window.onload = startCon;
+
+            function startCon() {
+                connect();
+
+                return false;
+            }
+
+            window.onbeforeunload = endCon;
+
+            function endCon() {
+                stompClient.send("/actionHandlers/state", {}, JSON.stringify({'isActive': false}));
+                return false;
+            }
+
+
+            function connect() {
+                var socket = new SockJS('/currentPriceWebSocket');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    var userName = socket._transport.url.toString();
+                    var index = userName;
+                    for(var i=0; i< 5;i++){
+                        index = index.substring(index.indexOf('/') + 1,index.length);
+                    }
+                    userName = index.substring(0,index.indexOf('/'));
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/prices/getCurrent/'+userName, function (greeting) {
+                        if (greeting.body == "Disconnect") {
+                            disconnect();
+                        }
+                        showTable(JSON.parse(greeting.body));
+                    });
+                    stompClient.send("/actionHandlers/state", {}, JSON.stringify({
+                        'isActive': true,
+                        'isPrediction': false
+                    }));
+                });
+            }
+
+
+            function disconnect() {
+                if (stompClient !== null) {
+                    stompClient.disconnect();
+                }
+                console.log("Disconnected");
+            }
+
+            function showTable(json) {
+                var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+                var row = tableRef.rows.item(0);
+                var d = new Date(Date.parse(json.id.price_timestamp.toString()));
+                var diff = 0.0;
+                if (row.cells.item(1).innerText != "") {
+                    var pr = parseFloat(json.price.toString());
+                    var prev = parseFloat(row.cells.item(1).innerText);
+                    diff = pr - prev;
+                }
+                if (diff > 0) {
+                    row.style.color = "green";
+                } else if (diff < 0) {
+                    row.style.color = "red";
+                } else {
+                    row.style.color = "black";
+                    row.style.background = "lightgray";
+                }
+                row.deleteCell(1);
+                row.insertCell(1).appendChild(document.createTextNode(json.price.toString()));
+                row.deleteCell(2);
+                row.insertCell(2).appendChild(document.createTextNode(diff.toFixed(3)));
+                row.deleteCell(3);
+                row.insertCell(3).appendChild(document.createTextNode(d.toLocaleDateString()));
+                row.deleteCell(4);
+                row.insertCell(4).appendChild(document.createTextNode(d.toLocaleTimeString()))
+            }
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            document.getElementById("options").onchange = loadValues;
+            //window.onload = loadValues;
+            var chart;
+
+            function loadValues() {
+                var date1, date2;
+                var values;
+                /*if (document.getElementById("options").value == 1) {
+                    //there should be hiding of the chart
+                }*/
+                date2 = new Date(Date.now()).toISOString().substr(0, 10);
+                var d1 = new Date(Date.now());
+                d1.setDate(d1.getDay() - 1);
+                date1 = d1.toISOString().substr(0, 10);
+                if (date1 == "" || date2 == "") {
+                    alert("wrong input");
+                    return;
+                }
+                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '" }';
+                var jsonDates = JSON.parse(str);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/uploadValues', true);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        values = xhr.responseText;
+                        drawChart(values);
+                    }
+                };
+                xhr.send(JSON.stringify(jsonDates));
+            }
+
+            function drawChart(values) {
+                var stringJson;
+                var numberOfValues = 0;
+
+                var jsonValues = JSON.parse(values, function (key, value) {
+                    if (key == "id") {
+                        numberOfValues++;
+                        return new Date(Date.parse(value.price_timestamp));
+                    } else {
+                        return value;
+                    }
+                });
+
+                stringJson = JSON.stringify(jsonValues);
+                console.log(stringJson);
+
+                var data = new google.visualization.DataTable();
+                // Add columns
+                data.addColumn('date', 'Date');
+                data.addColumn('number', 'rate');
+                for (i = 0; i < numberOfValues; i++) {
+                    data.addRow([jsonValues[i].id, jsonValues[i].price]);
+                }
+
+
+                var options = {
+                    title: 'Brent Oil',
+                    curveType: 'function',
+                    legend: {position: 'bottom'},
+                    hAxis: {
+                        title: "dates"
+                    },
+                    vAxis: {
+                        title: "Values"
+                    }
+                };
+
+                chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+
+            }
+        </script>
+
     </th:block>
 </th:block>
 </html>

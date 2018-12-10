@@ -5,19 +5,36 @@
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-        <div id="main-content" class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <label>Date:   </label><input id="date">
-                    <div></div>
-                    <label>Price:  </label><input id="price">
+        <div class="row">
+            <div class="col-md-3 " style="margin-top: 15px">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                        <label class="input-group-text" for="options"
+                               style="background: darkslategrey; color: white">Options</label>
+                    </div>
+                    <select class="custom-select" id="options">
+                        <option value="1">Brent Oil Crude</option>
+                    </select>
                 </div>
             </div>
+        </div>
+        <div id="main-content" class="container">
+            <div class="row">
+            <div class="col-md-12">
+                <label>Date: </label><input id="date">
+                <div></div>
+                <label>Price: </label><input id="price">
+            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Predicted Price: </label><input id="prediction">
+                        <div></div>
+                    </div>
+                </div>
         </div>
         </div>
         <script type="text/javascript">
             var stompClient = null;
-
 
             window.onload = startCon;
 
@@ -39,14 +56,30 @@
                 var socket = new SockJS('/currentPriceWebSocket');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (frame) {
+                    var userName = socket._transport.url.toString();
+                    var index = userName;
+                    for(var i=0; i< 5;i++){
+                        index = index.substring(index.indexOf('/') + 1,index.length);
+                    }
+                    userName = index.substring(0,index.indexOf('/'));
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/prices/getCurrent', function (greeting) {
-                        if(greeting.body == "Disconnect"){
+                    stompClient.subscribe('/prices/getCurrent/'+userName, function (greeting) {
+                        if (greeting.body == "Disconnect") {
                             disconnect();
                         }
                         showGreeting(JSON.parse(greeting.body));
                     });
-                    stompClient.send("/actionHandlers/state", {}, JSON.stringify({'isActive': true}));
+                    //stompClient.subscribe('/');
+                    stompClient.subscribe('/prices/getPrediction/'+userName, function (prediction) {
+                        if (prediction.body == "Disconnect") {
+                            disconnect();
+                        }
+                        showPrediction(JSON.parse(prediction.body));
+                    });
+                    stompClient.send("/actionHandlers/state", {}, JSON.stringify({
+                        'isActive': true,
+                        'isPrediction': true,
+                    }));
                 });
             }
 
@@ -61,6 +94,10 @@
                 var d = new Date(Date.parse(json.id.price_timestamp.toString()));
                 document.getElementById("date").value = d.toLocaleDateString() + " " + d.toLocaleTimeString();
                 document.getElementById("price").value = json.price.toString();
+            }
+
+            function showPrediction(json){
+                document.getElementById("prediction").value = json.value;
             }
 
         </script>

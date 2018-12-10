@@ -5,6 +5,8 @@ public class BrentDates {
     private String fromDate;
     private String toDate;
 
+    private boolean withPrediction;
+
     public BrentDates() {
 
     }
@@ -28,5 +30,13 @@ public class BrentDates {
 
     public void setToDate(String toDate) {
         this.toDate = toDate;
+    }
+
+    public boolean isWithPrediction() {
+        return withPrediction;
+    }
+
+    public void setWithPrediction(boolean withPrediction) {
+        this.withPrediction = withPrediction;
     }
 }

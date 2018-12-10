@@ -3,12 +3,16 @@ package com.twoez.domain;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 
 @Entity
 public class BrentOil {
 
+   /* @GeneratedValue
+    private int id;*/
+
     @EmbeddedId
-    private BrentOilPK id;
+    private BrentOilPK boPK;
 
     private double price;
 
@@ -17,16 +21,16 @@ public class BrentOil {
     }
 
     public BrentOil(BrentOilPK id, double price) {
-        this.id = id;
+        this.boPK = id;
         this.price = price;
     }
 
     public BrentOilPK getId() {
-        return id;
+        return boPK;
     }
 
     public void setId(BrentOilPK id) {
-        this.id = id;
+        this.boPK = id;
     }
 
     public double getPrice() {
@@ -41,6 +45,6 @@ public class BrentOil {
         if(bo == null) {
             return false;
         }
-        return this.id.getPrice_timestamp().equals(bo.getId().getPrice_timestamp()) && this.price == bo.getPrice();
+        return this.boPK.getPrice_timestamp().equals(bo.getId().getPrice_timestamp()) && this.price == bo.getPrice();
     }
 }

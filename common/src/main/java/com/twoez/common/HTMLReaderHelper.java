@@ -113,6 +113,7 @@ public class HTMLReaderHelper {
                 return null;
             }
             StringBuilder sb = new StringBuilder();
+
             Character currentChar = charPointer.next();
             if(currentChar == null){
                 return null;

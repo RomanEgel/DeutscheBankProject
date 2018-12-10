@@ -17,8 +17,8 @@ public class SavingCurrentPriceListener implements Listener<BrentOil> {
     }
 
     @Override
-    public int hash() {
-        return brentOilRepository.hashCode();
+    public String hash() {
+        return "dbSaverSingleton";
     }
 
     @Autowired

@@ -30,7 +30,11 @@ public class UploadingController {
         try {
             Date dFrom = format.parse(dates.getFromDate());
             Date dTo = format.parse(dates.getToDate());
-            return brentOilRepository.findPricesBetween(dFrom,dTo).toArray();
+            if(dates.isWithPrediction()){
+                return null;
+            } else{
+                return brentOilRepository.findPricesBetween(dFrom,dTo).toArray();
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
