@@ -22,11 +22,11 @@ public class ListenerState {
         isActive = active;
     }
 
-    public boolean isPrediction() {
+    public boolean getIsPrediction() {
         return isPrediction;
     }
 
-    public void setPrediction(boolean prediction) {
+    public void setIsPrediction(boolean prediction) {
         isPrediction = prediction;
     }
 

@@ -15,8 +15,8 @@ public class PredictedListener implements Listener<Double> {
 
     @Override
     public void onUpdate(Double value) {
-        //System.out.println("sending prediction to user:" + clientId);
-        client.convertAndSend("/prices/getPredicted/"+clientId,value);
+        System.out.println("sending prediction to user:" + clientId);
+        client.convertAndSend("/prices/getPrediction/"+clientId,value);
     }
 
     @Override

@@ -25,6 +25,9 @@ import java.util.concurrent.atomic.AtomicLong;
 public class MainController {
 
     @Autowired
+    PriceDispatcher priceDispatcher;
+
+    @Autowired
     private BrentOilRepository brentOilRepository;
 
     @Autowired
@@ -46,15 +49,15 @@ public class MainController {
     @MessageMapping("/state")
     public String changeState(ListenerState state, @Header("simpSessionId") String sessionId) {
         if (state.getIsActive()) {
-            PriceDispatcher.dispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate,sessionId));
-            if (state.isPrediction()) {
-                PriceDispatcher.dispatcher.addPredictedPriceListener(new PredictedListener(simpMessagingTemplate,sessionId));
+            priceDispatcher.addListener(new CurrentPriceListener(simpMessagingTemplate,sessionId));
+            if (state.getIsPrediction()) {
+                priceDispatcher.addPredictedPriceListener(new PredictedListener(simpMessagingTemplate,sessionId));
             }
         } else {
-            if (state.isPrediction()) {
-                PriceDispatcher.dispatcher.removePredictedListenerByHash(sessionId);
+            if (state.getIsPrediction()) {
+                priceDispatcher.removePredictedListenerByHash(sessionId);
             }
-            PriceDispatcher.dispatcher.removeListenerByHash(sessionId);
+            priceDispatcher.removeListenerByHash(sessionId);
         }
         return sessionId;
     }

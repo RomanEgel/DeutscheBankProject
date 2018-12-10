@@ -23,7 +23,8 @@ public class PriceDispatcher {
 
     private final PredictionConsumer predictionGetter;
 
-    private PriceDispatcher(PriceGetter getter, PredictionConsumer predictionConsumer) {
+    @Autowired
+    public PriceDispatcher(PriceGetter getter, PredictionConsumer predictionConsumer) {
         priceGetter = getter;
         predictionGetter = predictionConsumer;
         currentPriceListeners = new ArrayList<>();
@@ -96,7 +97,5 @@ public class PriceDispatcher {
     public void addKafkaListener(KafkaListener listener){
         addListener(listener);
     }
-
-    public final static PriceDispatcher dispatcher = new PriceDispatcher(new XMarketsPriceGetter(), new PredictionConsumer());
 
 }

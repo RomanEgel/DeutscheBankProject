@@ -47,7 +47,10 @@
             window.onbeforeunload = endCon;
 
             function endCon() {
-                stompClient.send("/actionHandlers/state", {}, JSON.stringify({'isActive': false}));
+                stompClient.send("/actionHandlers/state", {}, JSON.stringify({
+                    isActive: false,
+                    isPrediction: true
+                },null,'\t'));
                 return false;
             }
 
@@ -77,9 +80,9 @@
                         showPrediction(JSON.parse(prediction.body));
                     });
                     stompClient.send("/actionHandlers/state", {}, JSON.stringify({
-                        'isActive': true,
-                        'isPrediction': true,
-                    }));
+                        isActive: true,
+                        isPrediction: true
+                    },null,'\t'));
                 });
             }
 
@@ -97,7 +100,7 @@
             }
 
             function showPrediction(json){
-                document.getElementById("prediction").value = json.value;
+                document.getElementById("prediction").value = parseFloat(json).toFixed(2);
             }
 
         </script>
