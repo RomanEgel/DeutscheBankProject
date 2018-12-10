@@ -6,3 +6,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  resources:
+    static-locations: classpath:/static/js

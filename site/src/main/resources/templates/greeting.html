@@ -40,10 +40,24 @@
                         <option value="1" selected>Select currency</option>
                         <option value="2">Brent Oil Crude</option>
                     </select>
-                    <div id="curve_chart" style="width: 600px; height: 400px; margin-right: 150px"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="myChart" height="200"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <div id="curve_id" style="width: 730px; height: 400px">
+
+                    </div>
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.7.0/dist/chartjs-plugin-streaming.min.js"></script>
         <script type="text/javascript">
             var stompClient = null;
             window.onload = startCon;
@@ -98,6 +112,7 @@
                 var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
                 var row = tableRef.rows.item(0);
                 var d = new Date(Date.parse(json.id.price_timestamp.toString()));
+                setRealTimePrice(d,json.price);
                 var diff = 0.0;
                 if (row.cells.item(1).innerText != "") {
                     var pr = parseFloat(json.price.toString());
@@ -120,6 +135,51 @@
                 row.insertCell(3).appendChild(document.createTextNode(d.toLocaleDateString()));
                 row.deleteCell(4);
                 row.insertCell(4).appendChild(document.createTextNode(d.toLocaleTimeString()))
+            }
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            var myChart = new Chart(ctx, {
+                type: 'line',               // 'line', 'bar', 'bubble' and 'scatter' types are supported
+                data: {
+                    datasets: [ {
+                        label: 'current',
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'realtime',   // x axis will auto-scroll from right to left
+                            realtime: {         // per-axis options
+                                duration: 50000,    // data in the past 200000 ms will be displayed
+                                refresh: 1000,      // onRefresh callback will be called every 1000 ms
+                                delay: 2000,        // delay of 2000 ms, so upcoming values are known before plotting a line
+                                pause: false,       // chart is not paused
+                                ttl: undefined     // data will be automatically deleted as it disappears off the chart
+                            }
+                        }]
+                    },
+                    plugins: {
+                        streaming: {            // per-chart option
+                            frameRate: 30       // chart is drawn 30 times every second
+                        }
+                    }
+                }
+            });
+
+            function setRealTimePrice(date, value) {
+
+                // append the new data to the existing chart data
+                myChart.data.datasets[0].data.push({
+                    x: date,
+                    y: value
+                });
+
+                // update chart datasets keeping the current animation
+                myChart.update({
+                    preservation: true
+                });
             }
         </script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -196,7 +256,7 @@
                     }
                 };
 
-                chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+                chart = new google.visualization.AreaChart(document.getElementById('curve_id'));
 
                 chart.draw(data, options);
 
