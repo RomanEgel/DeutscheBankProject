@@ -15,11 +15,13 @@ public class HTMLReaderHelper {
     }
 
     public CharIterator charIterator(){
-        CharIterator iterator;
-        try {
-            iterator = new CharIterator();
-        } catch(IOException ex){
-            return null;
+        CharIterator iterator = null;
+        while(iterator == null) {
+            try {
+                iterator = new CharIterator();
+            } catch (IOException ex) {
+                continue;
+            }
         }
         return iterator;
     }

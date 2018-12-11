@@ -19,7 +19,6 @@ public class CurrentPriceListener implements Listener<BrentOil>{
 
     @Override
     public void onUpdate(BrentOil value) {
-        //System.out.println("sending to user: " + clientId);
         client.convertAndSend("/prices/getCurrent/"+clientId,value);
     }
 
