@@ -3,7 +3,9 @@ package com.twoez.controller;
 
 import com.twoez.domain.BrentDates;
 import com.twoez.domain.BrentOil;
+import com.twoez.domain.BrentOilWithPrediction;
 import com.twoez.repository.BrentOilRepository;
+import com.twoez.repository.PredictedPricesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,9 @@ public class UploadingController {
     @Autowired
     private BrentOilRepository brentOilRepository;
 
+    @Autowired
+    private PredictedPricesRepository predictedPricesRepository;
+
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostMapping(value = "/uploadValues", consumes = {"application/json"}, produces = {"application/json"})
@@ -31,7 +36,8 @@ public class UploadingController {
             Date dFrom = format.parse(dates.getFromDate());
             Date dTo = format.parse(dates.getToDate());
             if(dates.isWithPrediction()){
-                return null;
+                List<BrentOilWithPrediction> list = predictedPricesRepository.findPricesWithPredictionBetween(dFrom,dTo);
+                return list.toArray();
             } else{
                 return brentOilRepository.findPricesBetween(dFrom,dTo).toArray();
             }

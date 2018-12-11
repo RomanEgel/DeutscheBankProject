@@ -6,6 +6,7 @@ import org.apache.spark.sql.*;
 import picocli.CommandLine;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "Predictor", mixinStandardHelpOptions = true, version = "0.1")
@@ -33,8 +34,6 @@ public class Predictor implements Callable<Integer> {
                 .builder()
                 .appName("Java Spark SQL basic example")
                 .config("spark.master", "local")
-                .config("spark.driver.host", "localhost")
-                .appName("predictor")
                 .getOrCreate();
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
 

@@ -56,7 +56,11 @@ public class HistoryCoverage implements PredictionEvaluator {
     @Override
     public void trainRegressor(){
         LinearRegression lr = new LinearRegression()
-                .setLabelCol("next_price");
+                .setLabelCol("next_price")
+                .setElasticNetParam(0.5)
+                .setRegParam(0.1)
+                .setMaxIter(10);
+
         model = lr.fit(dataset);
     }
     @Override

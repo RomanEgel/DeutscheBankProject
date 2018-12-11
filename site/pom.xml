@@ -33,12 +33,6 @@
             <artifactId>kafka_2.12</artifactId>
             <version>2.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-
 
         <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
 

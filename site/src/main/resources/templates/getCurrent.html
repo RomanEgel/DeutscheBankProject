@@ -108,7 +108,7 @@
 
             function showPrediction(json) {
                 document.getElementById("prediction").value = parseFloat(json).toFixed(2);
-                setPredictionPrice(d,json);
+                setPredictionPrice(curDate,json);
             }
 
 
@@ -121,12 +121,16 @@
                         label: 'prediction',
                         borderColor: 'rgb(255, 99, 132)',
                         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        fill: false,
                         lineTension: 0,
-                        borderDash: [8, 4]
+                        borderDash: [8, 4],
+                        data: []
                     }, {
                         label: 'current',
                         borderColor: 'rgb(54, 162, 235)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        fill: false,
+                        data: []
                     }]
                 },
                 options: {
@@ -134,7 +138,7 @@
                         xAxes: [{
                             type: 'realtime',   // x axis will auto-scroll from right to left
                             realtime: {         // per-axis options
-                                duration: 50000,    // data in the past 200000 ms will be displayed
+                                duration: 20000,    // data in the past 200000 ms will be displayed
                                 refresh: 1000,      // onRefresh callback will be called every 1000 ms
                                 delay: 2000,        // delay of 2000 ms, so upcoming values are known before plotting a line
                                 pause: false,       // chart is not paused

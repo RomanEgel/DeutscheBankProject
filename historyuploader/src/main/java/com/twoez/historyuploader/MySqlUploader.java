@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MySqlUploader implements DBUploader{
 
-    private static final Logger logger = LoggerFactory.getLogger(MySqlUploader.class);
+    private Logger logger = LoggerFactory.getLogger(MySqlUploader.class);
 
     private Connection connection;
 
@@ -40,6 +40,7 @@ public class MySqlUploader implements DBUploader{
         }
         try {
             logger.info("Creating table " + TABLE_NAME);
+            logger.info(createTableCommand);
             Statement createTableStatement = connection.createStatement();
             createTableStatement.execute(createTableCommand);
         } catch (SQLException ex){
@@ -70,6 +71,7 @@ public class MySqlUploader implements DBUploader{
         } catch (SQLException ex){
             throw new RuntimeException("Unable to insert data");
         }
+
     }
 
     @Override
@@ -98,7 +100,7 @@ public class MySqlUploader implements DBUploader{
 
         logger.info("Procedure dropped");
         logger.info("Creating procedure");
-        String procedureCreateStatement = "create procedure create_dataset_table() READS SQL DATA begin drop table if exists new_table; drop table if exists next_price_table; create table new_table(id int AUTO_INCREMENT,price double,next_price double, PRIMARY KEY(id)); insert into new_table (price) select price from brent_oil where source = 'RealTimeXMarkets' or source = 'HistoryProfinance' order by price_timestamp; create table next_price_table(id int AUTO_INCREMENT,next_price double, PRIMARY KEY(id)); insert into next_price_table(next_price) select price as next_price from((select price_timestamp, price from brent_oil where (price_timestamp != (select min(price_timestamp) from brent_oil where source = 'RealTimeXMarkets' or source = 'HistoryProfinance')) and (source = 'RealTimeXMarkets' or source = 'HistoryProfinance') order by price_timestamp) union all (select price_timestamp, price from brent_oil where (price_timestamp = (select max(price_timestamp) from brent_oil where source = 'RealTimeXMarkets' or source = 'HistoryProfinance')) and (source = 'RealTimeXMarkets' or source = 'HistoryProfinance'))) as tmp order by price_timestamp; update new_table join next_price_table on new_table.id = next_price_table.id set new_table.next_price = next_price_table.next_price;  end";
+        String procedureCreateStatement = "create procedure create_dataset_table() READS SQL DATA begin drop table if exists new_table; drop table if exists next_price_table; create table new_table(id int AUTO_INCREMENT,price double,next_price double, price_time datetime, PRIMARY KEY(id)); insert into new_table (price, price_time) select price, price_timestamp from brent_oil where source = 'RealTimeXMarkets' or source = 'HistoryProfinance' order by price_timestamp; create table next_price_table(id int AUTO_INCREMENT,next_price double, PRIMARY KEY(id)); insert into next_price_table(next_price) select price as next_price from((select price_timestamp, price from brent_oil where (price_timestamp != (select min(price_timestamp) from brent_oil where source = 'RealTimeXMarkets' or source = 'HistoryProfinance')) and (source = 'RealTimeXMarkets' or source = 'HistoryProfinance') order by price_timestamp) union all (select price_timestamp, price from brent_oil where (price_timestamp = (select max(price_timestamp) from brent_oil where source = 'RealTimeXMarkets' or source = 'HistoryProfinance')) and (source = 'RealTimeXMarkets' or source = 'HistoryProfinance'))) as tmp order by price_timestamp; update new_table join next_price_table on new_table.id = next_price_table.id set new_table.next_price = next_price_table.next_price;  end";
         try{
             Statement createStatement = connection.createStatement();
             createStatement.executeUpdate(procedureCreateStatement);

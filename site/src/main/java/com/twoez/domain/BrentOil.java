@@ -4,12 +4,13 @@ package com.twoez.domain;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 public class BrentOil {
 
-   /* @GeneratedValue
-    private int id;*/
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @EmbeddedId
     private BrentOilPK boPK;

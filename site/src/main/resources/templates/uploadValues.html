@@ -95,7 +95,8 @@
         </script>
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+
+            var flagPrediction = false;
 
             function loadValues() {
                 var date1, date2;
@@ -107,11 +108,12 @@
                     alert("wrong input");
                     return;
                 }
-                var flag = false;
                 if(document.getElementById("prediction").value == 2){
-                    flag = true;
+                    flagPrediction = true;
+                } else{
+                    flagPrediction = false;
                 }
-                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '", "withPrediction": "' + flag.toString() + '" }';
+                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '", "withPrediction": "' + flagPrediction.toString() + '" }';
                 var jsonDates = JSON.parse(str);
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", '/uploadValues', true);
@@ -129,50 +131,90 @@
             }
 
             function drawChart(values) {
-                if(values == null){
+                if(values == null || values==''){
                     button.innerHTML = 'load brent oil history';
                     button.disabled = false;
                     return;
                 }
                 var stringJson;
                 var numberOfValues = 0;
+                if(!flagPrediction) {
+                    var jsonValues = JSON.parse(values, function (key, value) {
+                        if (key == "id") {
+                            numberOfValues++;
+                            return new Date(Date.parse(value.price_timestamp));
+                        } else {
+                            return value;
+                        }
+                    });
 
-                var jsonValues = JSON.parse(values, function (key, value) {
-                    if(key == "id"){
-                        numberOfValues++;
-                        return new Date(Date.parse(value.price_timestamp));
-                    } else{
-                        return value;
+                    stringJson = JSON.stringify(jsonValues);
+                    console.log(stringJson);
+
+                    var data = new google.visualization.DataTable();
+                    // Add columns
+                    data.addColumn('date', 'Date');
+                    data.addColumn('number', 'rate');
+                    for (var i = 0; i < numberOfValues; i++) {
+                        data.addRow([jsonValues[i].id, jsonValues[i].price]);
                     }
-                });
 
-                stringJson = JSON.stringify(jsonValues);
-                console.log(stringJson);
 
-                var data = new google.visualization.DataTable();
-                // Add columns
-                data.addColumn('date', 'Date');
-                data.addColumn('number', 'rate');
-                for(var i=0;i<numberOfValues;i++){
-                    data.addRow([jsonValues[i].id,jsonValues[i].price]);
+                    var options = {
+                        title: 'Brent Oil Currencies',
+                        curveType: 'function',
+                        legend: {position: 'bottom'},
+                        hAxis: {
+                            title: "dates"
+                        },
+                        vAxis: {
+                            title: "Values"
+                        }
+                    };
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data, options);
+                } else{
+                    var jsonValues = JSON.parse(values, function (key, value) {
+                        if (key == "price_time") {
+                            numberOfValues++;
+                            return new Date(Date.parse(value));
+                        } else {
+                            return value;
+                        }
+                    });
+
+                    stringJson = JSON.stringify(jsonValues);
+                    console.log(stringJson);
+
+                    var data1 = new google.visualization.DataTable();
+                    // Add columns
+                    data1.addColumn('date', 'Date');
+                    data1.addColumn('number', 'price');
+                    data1.addColumn('number', 'prediction');
+
+
+                    for (var i = 0; i < numberOfValues; i++) {
+                        data1.addRow([jsonValues[i].price_time, jsonValues[i].price, jsonValues[i].prediction]);
+                    }
+
+                    var options = {
+                        title: 'Brent Oil Currencies',
+                        curveType: 'function',
+                        legend: {position: 'bottom'},
+                        hAxis: {
+                            title: "dates"
+                        },
+                        vAxis: {
+                            title: "Values"
+                        }
+                    };
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data1, options);
                 }
-
-
-                var options = {
-                    title: 'Brent Oil Currencies',
-                    curveType: 'function',
-                    legend: {position: 'bottom'},
-                    hAxis: {
-                        title: "dates"
-                    },
-                    vAxis: {
-                        title: "Values"
-                    }
-                };
-
-                var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
-
-                chart.draw(data, options);
                 button.innerHTML = 'load brent oil history';
                 button.disabled = false;
             }
