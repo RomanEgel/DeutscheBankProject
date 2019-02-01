@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # '2ez' Project requirements
 
 ## Table of contents
@@ -95,4 +94,3 @@ It's a repository of our project. It consists of several modules:
 ## Run
 
   Now module running order is sufficient so first run **historyuploader** then **predictor** and only then **site**. But breaking order will not cause any problems if only **historyuploader** initialized database.
->>>>>>> dev
