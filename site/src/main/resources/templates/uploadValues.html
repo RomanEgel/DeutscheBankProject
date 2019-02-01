@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="common/common :: common('uploadValues')">
+    <th:block th:fragment="uploadValues">
+        <p></p>
+        <h6>Choose period that you're interested in</h6>
+        <p></p>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="background: darkslategrey; color: white">From</span>
+            <input id="date1" type="date"  name="fromDate" onchange="date1Changed()">
+            <span class="input-group-text" style="background: darkslategrey; color: white">To</span>
+            <input id="date2" type="date"  name="toDate" onchange="date2Changed()">
+            <div class="input-group-prepend ">
+                <label class="input-group-text" for="options" style="background: darkslategrey; color: white">Options</label>
+            </div>
+            <select class="custom-select" id="options">
+                <option value="1">Brent Oil Crude</option>
+            </select>
+            <div class="input-group-prepend ">
+                <label class="input-group-text" for="prediction" style="background: darkslategrey; color: white">Prediction</label>
+            </div>
+            <select class="custom-select" id="prediction">
+                <option value="1">Without prediction</option>
+                <option value="2">Including prediction</option>
+            </select>
+            <button onclick="loadValues()" id="button" type="button" class="btn btn-primary">Load brent oil history</button>
+        </div>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            window.onload = findOutRange;
+
+
+            function date1Changed(){
+                var date1 = document.getElementById("date1").value;
+                var max = document.getElementById("date1").max;
+                var min = document.getElementById("date1").min;
+                var date2 = document.getElementById("date2").value;
+                if(date1 > max){
+                    document.getElementById("date1").value = max;
+                }
+                else if(date1 < min){
+                    document.getElementById("date1").value = min;
+                }
+                else if(date2 != "" && date1 > date2){
+                    document.getElementById("date1").value = date2;
+                }
+
+            }
+
+            function date2Changed(){
+                var date2 = document.getElementById("date2").value;
+                var max = document.getElementById("date2").max;
+                var min = document.getElementById("date2").min;
+                var date1 = document.getElementById("date1").value;
+                if(date2 > max){
+                    document.getElementById("date2").value = max;
+                }
+                else if(date2 < min){
+                    document.getElementById("date2").value = min;
+                }
+                else if(date1 != "" && date2 < date1){
+                    document.getElementById("date2").value = date1;
+                }
+            }
+
+            function findOutRange() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", '/getRange', true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        values = xhr.responseText;
+                        setRange(values);
+                    }
+                };
+                xhr.send();
+
+                function setRange(values) {
+                    var vals = JSON.parse(values);
+                    var d1 = new Date(Date.parse(vals[0])).toISOString().substr(0,10);
+                    var d2 = new Date(Date.parse(vals[1])).toISOString().substr(0,10);
+                    var d3 = new Date(Date.parse(vals[1]));
+                    d3.setDate(d3.getDate()-1);
+                    document.getElementById("date1").min = d1;
+                    document.getElementById("date1").max = d2;
+                    document.getElementById("date2").min = d1;
+                    document.getElementById("date2").max = d2;
+
+                    document.getElementById("date1").value = d3.toISOString().substr(0,10);
+                    document.getElementById("date2").value = d2;
+
+
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+
+            var flagPrediction = false;
+
+            function loadValues() {
+                var date1, date2;
+                var values;
+                date1 = document.getElementById("date1").value;
+                date2 = document.getElementById("date2").value;
+                if(date1 == "" || date2== "" )
+                {
+                    alert("wrong input");
+                    return;
+                }
+                if(document.getElementById("prediction").value == 2){
+                    flagPrediction = true;
+                } else{
+                    flagPrediction = false;
+                }
+                var str = '{ "fromDate": "' + date1 + '", "toDate": "' + date2 + '", "withPrediction": "' + flagPrediction.toString() + '" }';
+                var jsonDates = JSON.parse(str);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/uploadValues', true);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        values = xhr.responseText;
+                        button.innerHTML = 'Готово!';
+                        drawChart(values);
+                    }
+                };
+                xhr.send(JSON.stringify(jsonDates));
+                button.innerHTML = 'Loading...'; // (2)
+                button.disabled = true;
+            }
+
+            function drawChart(values) {
+                if(values == null || values==''){
+                    button.innerHTML = 'load brent oil history';
+                    button.disabled = false;
+                    return;
+                }
+                var stringJson;
+                var numberOfValues = 0;
+                if(!flagPrediction) {
+                    var jsonValues = JSON.parse(values, function (key, value) {
+                        if (key == "id") {
+                            numberOfValues++;
+                            return new Date(Date.parse(value.price_timestamp));
+                        } else {
+                            return value;
+                        }
+                    });
+
+                    stringJson = JSON.stringify(jsonValues);
+                    console.log(stringJson);
+
+                    var data = new google.visualization.DataTable();
+                    // Add columns
+                    data.addColumn('date', 'Date');
+                    data.addColumn('number', 'rate');
+                    for (var i = 0; i < numberOfValues; i++) {
+                        data.addRow([jsonValues[i].id, jsonValues[i].price]);
+                    }
+
+
+                    var options = {
+                        title: 'Brent Oil Currencies',
+                        curveType: 'function',
+                        legend: {position: 'bottom'},
+                        hAxis: {
+                            title: "dates"
+                        },
+                        vAxis: {
+                            title: "Values"
+                        }
+                    };
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data, options);
+                } else{
+                    var jsonValues = JSON.parse(values, function (key, value) {
+                        if (key == "price_time") {
+                            numberOfValues++;
+                            return new Date(Date.parse(value));
+                        } else {
+                            return value;
+                        }
+                    });
+
+                    stringJson = JSON.stringify(jsonValues);
+                    console.log(stringJson);
+
+                    var data1 = new google.visualization.DataTable();
+                    // Add columns
+                    data1.addColumn('date', 'Date');
+                    data1.addColumn('number', 'price');
+                    data1.addColumn('number', 'prediction');
+
+
+                    for (var i = 0; i < numberOfValues; i++) {
+                        data1.addRow([jsonValues[i].price_time, jsonValues[i].price, jsonValues[i].prediction]);
+                    }
+
+                    var options = {
+                        title: 'Brent Oil Currencies',
+                        curveType: 'function',
+                        legend: {position: 'bottom'},
+                        hAxis: {
+                            title: "dates"
+                        },
+                        vAxis: {
+                            title: "Values"
+                        }
+                    };
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data1, options);
+                }
+                button.innerHTML = 'load brent oil history';
+                button.disabled = false;
+            }
+
+        </script>
+        <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    </th:block>
+</th:block>
+</html>

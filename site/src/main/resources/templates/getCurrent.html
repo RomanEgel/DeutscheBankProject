@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="common/common :: common('getCurrent')">
+    <th:block th:fragment="getCurrent">
+        <div class="row">
+            <div class="col-md-4 " style="margin-top: 15px">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                        <label class="input-group-text" for="options"
+                               style="background: darkslategrey; color: white">Options</label>
+                    </div>
+                    <select class="custom-select" id="options">
+                        <option value="1">Brent Oil Crude</option>
+                    </select>
+                </div>
+                <div style="text-align: right">
+                    <label>Date: </label><input id="date">
+                </div>
+                <div style="text-align: right">
+                    <label>Price: </label><input id="price">
+                </div>
+                <div style="text-align: right">
+                    <label>Predicted Price: </label><input id="prediction">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <canvas id="myChart" height="200"></canvas>
+            </div>
+        </div>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+        <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.7.0/dist/chartjs-plugin-streaming.min.js"></script>
+        <script type="text/javascript">
+            var stompClient = null;
+
+            window.onload = startCon;
+
+            function startCon() {
+                connect();
+
+                return false;
+            }
+
+            window.onbeforeunload = endCon;
+
+            function endCon() {
+                stompClient.send("/actionHandlers/state", {}, JSON.stringify({
+                    isActive: false,
+                    isPrediction: true
+                }, null, '\t'));
+                return false;
+            }
+
+
+            function connect() {
+                var socket = new SockJS('/currentPriceWebSocket');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    var userName = socket._transport.url.toString();
+                    var index = userName;
+                    for (var i = 0; i < 5; i++) {
+                        index = index.substring(index.indexOf('/') + 1, index.length);
+                    }
+                    userName = index.substring(0, index.indexOf('/'));
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/prices/getCurrent/' + userName, function (greeting) {
+                        if (greeting.body == "Disconnect") {
+                            disconnect();
+                        }
+                        showGreeting(JSON.parse(greeting.body));
+                    });
+                    //stompClient.subscribe('/');
+                    stompClient.subscribe('/prices/getPrediction/' + userName, function (prediction) {
+                        if (prediction.body == "Disconnect") {
+                            disconnect();
+                        }
+                        showPrediction(JSON.parse(prediction.body));
+                    });
+                    stompClient.send("/actionHandlers/state", {}, JSON.stringify({
+                        isActive: true,
+                        isPrediction: true
+                    }, null, '\t'));
+                });
+            }
+
+            function disconnect() {
+                if (stompClient !== null) {
+                    stompClient.disconnect();
+                }
+                console.log("Disconnected");
+            }
+
+            var curDate;
+
+            function showGreeting(json) {
+                var d = new Date(Date.parse(json.id.price_timestamp.toString()));
+                curDate = d;
+                document.getElementById("date").value = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+                document.getElementById("price").value = json.price.toString();
+                setRealTimePrice(d, parseFloat(json.price));
+            }
+
+            function showPrediction(json) {
+                document.getElementById("prediction").value = parseFloat(json).toFixed(2);
+                setPredictionPrice(curDate,json);
+            }
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            var myChart = new Chart(ctx, {
+                type: 'line',               // 'line', 'bar', 'bubble' and 'scatter' types are supported
+                data: {
+                    datasets: [{
+                        label: 'prediction',
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        fill: false,
+                        lineTension: 0,
+                        borderDash: [8, 4],
+                        data: []
+                    }, {
+                        label: 'current',
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        fill: false,
+                        data: []
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'realtime',   // x axis will auto-scroll from right to left
+                            realtime: {         // per-axis options
+                                duration: 20000,    // data in the past 200000 ms will be displayed
+                                refresh: 1000,      // onRefresh callback will be called every 1000 ms
+                                delay: 2000,        // delay of 2000 ms, so upcoming values are known before plotting a line
+                                pause: false,       // chart is not paused
+                                ttl: undefined     // data will be automatically deleted as it disappears off the chart
+                            }
+                        }]
+                    },
+                    plugins: {
+                        streaming: {            // per-chart option
+                            frameRate: 30       // chart is drawn 30 times every second
+                        }
+                    }
+                }
+            });
+
+            function setRealTimePrice(date, value) {
+
+                // append the new data to the existing chart data
+                myChart.data.datasets[1].data.push({
+                    x: date,
+                    y: value
+                });
+
+                // update chart datasets keeping the current animation
+                myChart.update({
+                    preservation: true
+                });
+            }
+
+            function setPredictionPrice(date, value) {
+                myChart.data.datasets[0].data.push({
+                    x: date,
+                    y: value
+                });
+
+                // update chart datasets keeping the current animation
+                myChart.update({
+                    preservation: true
+                });
+            }
+
+        </script>
+    </th:block>
+</th:block>
+</html>
